@@ -2,54 +2,51 @@
 
 Turn any face into a sticker.
 
-Run this model on Replicate:
+Run this model on Replicate: <https://replicate.com/fofr/face-to-sticker>
 
-https://replicate.com/fofr/face-to-sticker
+# Requirements
 
-Or run it in ComfyUI:
+- git
+- docker
+- [cog.run](https://cog.run/getting-started/)
 
-https://github.com/fofr/cog-face-to-sticker/blob/main/face-to-sticker-ui.json
+# Run
 
-You’ll need these custom nodes:
+1. clone code
 
-- [ComfyUI BRIA AI RMBG](https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG/tree/44a3f8f)
-- [ComfyUI Controlnet Aux](https://github.com/Fannovel16/comfyui_controlnet_aux/tree/6d6f63c)
-- [ComfyUI InstantID](https://github.com/cubiq/ComfyUI_InstantID/tree/0fcf494)
-- [ComfyUI IPAdapter Plus](https://github.com/cubiq/ComfyUI_IPAdapter_plus/tree/4e898fe)
-- [ComfyUI UltimateSDUpscale](https://github.com/ssitu/ComfyUI_UltimateSDUpscale/tree/bcefc5b)
-- [Efficiency Nodes ComfyUI](https://github.com/jags111/efficiency-nodes-comfyui/tree/1ac5f18)
-
-![Arnold](https://replicate.delivery/pbxt/RZzqVdLsqSZgHtEefD00iMK8VuDif6iVmXlSbNeiAShPuHtJB/ComfyUI_00002_.png)
-
-## Developing locally
-
-Clone this repository:
-
-```sh
-git clone --recurse-submodules https://github.com/fofr/cog-face-to-sticker.git
+```bash
+git clone --recurse-submodules https://github.com/mylukin/face-to-sticker.git
+cd face-to-sticker
 ```
 
-Run the [following script](https://github.com/fofr/cog-comfyui/blob/main/scripts/clone_plugins.sh) to install all the custom nodes:
+2. build model
 
-```sh
-./scripts/clone_plugins.sh
+```bash
+cog build -t sticker-maker
 ```
 
-### Running the Web UI from your Cog container
+3. run in docker
 
-1. **GPU Machine**: Start the Cog container and expose port 8188:
-```sh
-sudo cog run -p 8188 bash
+```bash
+# If your model uses a CPU:
+docker run -d -p 5001:5000 sticker-maker
+
+# If your model uses a GPU:
+docker run -d -p 5001:5000 --gpus all sticker-maker
+
+# If you're on an M1 Mac:
+docker run -d -p 5001:5000 --platform=linux/amd64 sticker-maker
 ```
-Running this command starts up the Cog container and let's you access it
 
-2. **Inside Cog Container**: Now that we have access to the Cog container, we start the server, binding to all network interfaces:
-```sh
-cd ComfyUI/
-python main.py --listen 0.0.0.0
+The server is now running locally on port 5001.
+
+To view the OpenAPI schema, open localhost:5001/openapi.json in your browser or use cURL to make requests:
+
+```bash
+curl http://localhost:5001/openapi.json
 ```
 
-3. **Local Machine**: Access the server using the GPU machine's IP and the exposed port (8188):
-`http://<gpu-machines-ip>:8188`
+# Reference
 
-When you goto `http://<gpu-machines-ip>:8188` you'll see the classic ComfyUI web form!
+- <https://cog.run/getting-started/>
+- <https://cog.run/http/>
