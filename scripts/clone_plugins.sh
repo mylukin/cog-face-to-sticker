@@ -9,9 +9,9 @@
 repos=(
   "https://github.com/cubiq/ComfyUI_IPAdapter_plus 4e898fe"
   "https://github.com/Fannovel16/comfyui_controlnet_aux 6d6f63c"
-  "https://github.com/jags111/efficiency-nodes-comfyui 1ac5f18"
+  "https://github.com/jags111/efficiency-nodes-comfyui 89390fc"
   "https://github.com/ssitu/ComfyUI_UltimateSDUpscale bcefc5b"
-  "https://github.com/cubiq/ComfyUI_InstantID 0fcf494"
+  "https://github.com/cubiq/ComfyUI_InstantID d8c70a0"
   "https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA_AI-RMBG 44a3f8f"
 )
 
